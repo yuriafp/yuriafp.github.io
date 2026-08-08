@@ -1,0 +1,8 @@
+{
+  "order": 3,
+  "stack": ["Blazor WASM", "ASP.NET Core", "EF Core"],
+  "summary": {
+    "pt": "Portal de vagas de emprego de Bauru. Blazor WebAssembly no cliente, API em ASP.NET Core no servidor e uma biblioteca compartilhada com os contratos entre os dois. Persistência com EF Core.",
+    "en": "Job board for Bauru. Blazor WebAssembly on the client, an ASP.NET Core API on the server, and a shared library holding the contracts between them. Persistence with EF Core."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "order": 1,
+  "stack": [".NET 8", "ASP.NET Core", "RabbitMQ", "SQL Server", "Docker"],
+  "summary": {
+    "pt": "API de controle de jornada de funcionários. O registro de ponto é assíncrono: a API publica numa fila e responde 202 Accepted, e um worker consome e persiste. A infraestrutura de desenvolvimento sobe em container.",
+    "en": "Employee time-tracking API. Clocking in is asynchronous: the API publishes to a queue and returns 202 Accepted, while a worker consumes the message and persists it. Development infrastructure runs in containers."
+  }
+}

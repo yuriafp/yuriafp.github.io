@@ -1,0 +1,92 @@
+@page "/"
+@implements IDisposable
+@inject LanguageService Language
+
+<PageTitle>@Site.Name — @Site.Tagline.Of(CurrentLang)</PageTitle>
+
+<section class="hero">
+    <h1 class="hero__name">@Site.Name</h1>
+    <p class="hero__role">@Site.Tagline.Of(CurrentLang)</p>
+</section>
+
+<section class="section" id="@Site.AboutId">
+    <h2 class="eyebrow">@Site.NavAbout.Of(CurrentLang)</h2>
+    <p class="lede">@Site.About.Of(CurrentLang)</p>
+    <p class="credential">@Site.Education.Of(CurrentLang)</p>
+
+    <div class="stacklist">
+        <div class="stackgroup">
+            <span class="stackgroup__label">@Site.StackNowLabel.Of(CurrentLang)</span>
+            <ul class="stack">
+                @foreach (var tech in Site.StackNow)
+                {
+                    <li>@tech</li>
+                }
+            </ul>
+        </div>
+        <div class="stackgroup">
+            <span class="stackgroup__label">@Site.StackLearningLabel.Of(CurrentLang)</span>
+            <ul class="stack">
+                @foreach (var topic in Site.StackLearning)
+                {
+                    <li>@topic.Of(CurrentLang)</li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="@Site.ProjectsId">
+    <h2 class="eyebrow">@Site.NavProjects.Of(CurrentLang)</h2>
+
+    <div class="projects">
+        @for (var i = 0; i < Site.Projects.Length; i++)
+        {
+            var project = Site.Projects[i];
+            <a class="card" href="@project.Url" target="_blank" rel="noopener noreferrer">
+                <div class="card__head">
+                    <span class="card__index">@((i + 1).ToString("00"))</span>
+                    <h3 class="card__name">@project.Name</h3>
+                    <span class="card__arrow" aria-hidden="true">&#8599;</span>
+                </div>
+                <p class="card__summary">@project.Summary.Of(CurrentLang)</p>
+                <ul class="stack">
+                    @foreach (var tech in project.Stack)
+                    {
+                        <li>@tech</li>
+                    }
+                </ul>
+            </a>
+        }
+    </div>
+</section>
+
+<section class="section" id="@Site.ContactId">
+    <h2 class="eyebrow">@Site.NavContact.Of(CurrentLang)</h2>
+    <p class="lede">@Site.ContactLead.Of(CurrentLang)</p>
+
+    <div class="contacts">
+        <div class="contact">
+            <span class="contact__label">Email</span>
+            <a class="contact__value" href="mailto:@Site.Email">@Site.Email</a>
+        </div>
+        <div class="contact">
+            <span class="contact__label">GitHub</span>
+            <a class="contact__value" href="@Site.GitHubUrl" target="_blank" rel="noopener noreferrer">github.com/@Site.Handle</a>
+        </div>
+        <div class="contact">
+            <span class="contact__label">LinkedIn</span>
+            <a class="contact__value" href="@Site.LinkedInUrl" target="_blank" rel="noopener noreferrer">@Site.LinkedInUrl.Replace("https://", "")</a>
+        </div>
+    </div>
+</section>
+
+@code {
+    private Lang CurrentLang => Language.Current;
+
+    protected override void OnInitialized() => Language.Changed += OnLanguageChanged;
+
+    private void OnLanguageChanged() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Language.Changed -= OnLanguageChanged;
+}

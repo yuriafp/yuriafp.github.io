@@ -1,0 +1,52 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject LanguageService Language
+
+<header class="topbar">
+    <div class="shell topbar__inner">
+        <a class="topbar__mark" href="/">@Site.Handle</a>
+
+        <nav class="topbar__nav">
+            @* Não troque por @@onclick: o Blazor deixa passar link de fragmento
+               na mesma página, e handler com preventDefault quebra a rolagem. *@
+            <a class="topbar__link" href="#@Site.AboutId">@Site.NavAbout.Of(CurrentLang)</a>
+            <a class="topbar__link" href="#@Site.ProjectsId">@Site.NavProjects.Of(CurrentLang)</a>
+            <a class="topbar__link" href="#@Site.ContactId">@Site.NavContact.Of(CurrentLang)</a>
+
+            <button class="lang" type="button" @onclick="Language.ToggleAsync"
+                    aria-label="@(CurrentLang == Lang.Pt ? "Switch to English" : "Mudar para português")">
+                <span data-on="@IsOn(Lang.Pt)">PT</span>
+                <span data-on="@IsOn(Lang.En)">EN</span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main class="shell">
+    @Body
+</main>
+
+<footer class="shell footer">
+    <span>© @DateTime.Now.Year @Site.Name</span>
+    <span>@Site.BuiltWith.Of(CurrentLang)</span>
+</footer>
+
+@code {
+    private Lang CurrentLang => Language.Current;
+
+    private string IsOn(Lang lang) => CurrentLang == lang ? "true" : "false";
+
+    protected override void OnInitialized() => Language.Changed += OnLanguageChanged;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Language.InitializeAsync();
+        }
+    }
+
+    private void OnLanguageChanged() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Language.Changed -= OnLanguageChanged;
+}

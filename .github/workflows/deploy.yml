@@ -1,0 +1,77 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Só no cron e no disparo manual. Push publica o que já está commitado,
+      # sem tocar na API do GitHub.
+      - name: Sync project metadata
+        if: github.event_name != 'push'
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./tools/sync-projects.ps1
+
+      # Sem este commit o próximo push reverteria o site para as descrições
+      # antigas, porque o build usa o arquivo versionado.
+      - name: Commit refreshed metadata
+        if: github.event_name != 'push'
+        run: |
+          if git diff --quiet -- Content/Projects.generated.cs; then
+            echo "Nenhuma descrição mudou."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Content/Projects.generated.cs
+          git commit -m "Atualiza descrições dos projetos"
+          git push
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Publish
+        run: dotnet publish Portfolio.csproj -c Release -o release --nologo
+
+      # O Pages devolve 404 para qualquer caminho que não seja arquivo real.
+      # Servir o app nesse 404 deixa o roteador do Blazor resolver a rota.
+      - name: Copy index.html to 404.html
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+      # Sem isto o Jekyll ignora a pasta _framework e o app não carrega.
+      - name: Ensure .nojekyll
+        run: touch release/wwwroot/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: release/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

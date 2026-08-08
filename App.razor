@@ -1,0 +1,17 @@
+@inject LanguageService Language
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <PageTitle>404 — @Site.Name</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <section class="section section--flush">
+                <p class="eyebrow">404</p>
+                <p class="lede" role="alert">@Site.NotFound.Of(Language.Current)</p>
+                <a class="link" href="/">@Site.BackHome.Of(Language.Current)</a>
+            </section>
+        </LayoutView>
+    </NotFound>
+</Router>

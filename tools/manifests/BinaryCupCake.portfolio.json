@@ -1,0 +1,8 @@
+{
+  "order": 4,
+  "stack": ["Blazor WASM", "PostgreSQL", "Azure"],
+  "summary": {
+    "pt": "Loja de cupcakes em Blazor WebAssembly: cadastro de usuários e produtos, autenticação e configuração de permissões. Projeto Integrador Transdisciplinar em Ciência da Computação.",
+    "en": "Cupcake shop in Blazor WebAssembly: user and product registration, authentication, and permission setup. Built as a computer science capstone project."
+  }
+}
