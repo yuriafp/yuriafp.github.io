@@ -1,4 +1,4 @@
-﻿// Gerado por tools/sync-projects.ps1 a partir do .portfolio.json de cada
+// Gerado por tools/sync-projects.ps1 a partir do .portfolio.json de cada
 // repositorio. Nao edite a mao: a proxima sincronizacao sobrescreve.
 
 namespace Portfolio.Content;
