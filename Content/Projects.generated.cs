@@ -19,12 +19,6 @@ public static partial class Site
                 "REST API for URL shortening, built as an academic project. Result pattern for domain errors, read and write repositories kept separate, a global exception middleware, and an xUnit test suite."),
             ["ASP.NET Core", "PostgreSQL", "EF Core", "AutoMapper", "xUnit"]),
 
-        new("VagasBauru",
-            "https://github.com/yuriafp/VagasBauru",
-            new("Portal de vagas de emprego de Bauru. Blazor WebAssembly no cliente, API em ASP.NET Core no servidor e uma biblioteca compartilhada com os contratos entre os dois. Persistência com EF Core.",
-                "Job board for Bauru. Blazor WebAssembly on the client, an ASP.NET Core API on the server, and a shared library holding the contracts between them. Persistence with EF Core."),
-            ["Blazor WASM", "ASP.NET Core", "EF Core"]),
-
         new("BinaryCupCake",
             "https://github.com/yuriafp/BinaryCupCake",
             new("Loja de cupcakes em Blazor WebAssembly: cadastro de usuários e produtos, autenticação e configuração de permissões. Projeto Integrador Transdisciplinar em Ciência da Computação.",
@@ -36,5 +30,11 @@ public static partial class Site
             new("Serviço em background que vigia uma pasta — a de Downloads, por exemplo — e arquiva por extensão o que chega nela. Leve e configurável, roda como Windows Service.",
                 "Background worker service that watches a folder — your Downloads directory, for instance — and files whatever lands there by extension. Lightweight and configurable, runs as a Windows Service."),
             [".NET Worker Service", "Windows Service"]),
+
+        new("TicTacToe",
+            "https://github.com/yuriafp/TicTacToe",
+            new("Jogo da velha em Blazor WebAssembly, publicado como site estático no GitHub Pages. A CPU tem três níveis: aleatório, heurístico e jogo perfeito por minimax com poda alfa-beta, verificado por busca exaustiva como invencível.",
+                "Tic-tac-toe in Blazor WebAssembly, published as a static site on GitHub Pages. The CPU has three levels: random, heuristic, and perfect play through minimax with alpha-beta pruning, verified unbeatable by exhaustive search."),
+            ["Blazor WASM", ".NET 8", "GitHub Pages"]),
     ];
 }
