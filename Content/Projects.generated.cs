@@ -7,12 +7,6 @@ public static partial class Site
 {
     public static readonly Project[] Projects =
     [
-        new("Oclock",
-            "https://github.com/yuriafp/Oclock",
-            new("API de controle de jornada de funcionários. O registro de ponto é assíncrono: a API publica numa fila e responde 202 Accepted, e um worker consome e persiste. A infraestrutura de desenvolvimento sobe em container.",
-                "Employee time-tracking API. Clocking in is asynchronous: the API publishes to a queue and returns 202 Accepted, while a worker consumes the message and persists it. Development infrastructure runs in containers."),
-            [".NET 8", "ASP.NET Core", "RabbitMQ", "SQL Server", "Docker"]),
-
         new("Shortly",
             "https://github.com/yuriafp/Shortly",
             new("API REST de encurtamento de URL, feita como projeto acadêmico. Padrão Result para erros de domínio, repositórios separados por leitura e escrita, middleware global de exceção e suíte de testes em xUnit.",
