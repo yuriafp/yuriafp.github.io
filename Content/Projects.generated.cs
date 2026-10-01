@@ -30,5 +30,11 @@ public static partial class Site
             new("Jogo da velha em Blazor WebAssembly, publicado como site estático no GitHub Pages. A CPU tem três níveis: aleatório, heurístico e jogo perfeito por minimax com poda alfa-beta, verificado por busca exaustiva como invencível.",
                 "Tic-tac-toe in Blazor WebAssembly, published as a static site on GitHub Pages. The CPU has three levels: random, heuristic, and perfect play through minimax with alpha-beta pruning, verified unbeatable by exhaustive search."),
             ["Blazor WASM", ".NET 8", "GitHub Pages"]),
+
+        new("Farol",
+            "https://github.com/yuriafp/Farol",
+            new("Servidor MCP open source que dá a agentes de IA, como o Claude Code, uma leitura de soluções .NET com a precisão do compilador — inclusive das legadas que outras ferramentas ignoram: projetos clássicos do .NET Framework, VB.NET, WebForms, WCF e WPF. Carrega as soluções com Roslyn e o MSBuild do Visual Studio fora do processo, mantém snapshots sincronizados com as edições do agente e responde dentro de um orçamento de tokens. Em desenvolvimento.",
+                "Open-source MCP server that gives AI agents such as Claude Code a compiler-accurate reading of .NET solutions — including the legacy ones other tools skip: classic .NET Framework projects, VB.NET, WebForms, WCF and WPF. It loads solutions with Roslyn and Visual Studio's MSBuild out of process, keeps snapshots in sync with the agent's edits, and answers within a token budget. In development."),
+            [".NET 10", "Roslyn", "MSBuild", "Model Context Protocol", "xUnit"]),
     ];
 }
